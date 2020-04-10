@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<project name="myjava" basedir=".">
+	<property name="src" location="src" />
+	<property name="build" location="target" />
+	<property name="lib" location="lib" />
+
+	<target name="init">
+		<mkdir dir="${build}" />
+	</target>
+
+	<path id="lib.path">
+		<fileset dir="${lib}" casesensitive="yes">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	
+	<target name="compile" depends="init">
+		<javac srcdir="${src}" destdir="${build}" includeantruntime="false">
+			<classpath>
+				<!-- <pathelement location="lib/student.jar" />
+				<pathelement location="lib/grade.jar" /> -->
+				<!-- <fileset dir="${lib}" casesensitive="yes">
+					<include name="*.jar" />
+				</fileset> -->
+				<path refid="lib.path" />
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="run" depends="compile">
+		<java classname="Main">
+			<classpath>
+				<pathelement location="${build}" />
+				<path refid="lib.path" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="clean">
+		<delete dir="${build}" />
+	</target>
+
+</project>
